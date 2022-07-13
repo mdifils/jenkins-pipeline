@@ -28,6 +28,7 @@ pipeline {
                 sh 'gradle -v'
                 sh 'git --version'
                 sh 'docker --version'
+                sh 'ls -la'
             }
         }
     }
