@@ -15,6 +15,7 @@ pipeline {
         stage('test') {
             steps {
                 sh './gradlew test'
+                sh 'java -jar build/libs/caesar-cipher.jar'
             }
         }
         stage('Release') {
