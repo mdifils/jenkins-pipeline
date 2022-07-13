@@ -7,16 +7,16 @@ pipeline {
                 sh 'chmod +x gradlew'
             }
         }
-        stage('test') {
-            steps {
-                sh './gradlew test'
-            }
-        }
         stage('build') {
             steps {
                 sh './gradlew build'
             }
         }
+        // stage('test') {
+        //     steps {
+        //         sh './gradlew test'
+        //     }
+        // }
         stage('Release') {
             steps {
                 echo 'Release'
