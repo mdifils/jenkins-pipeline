@@ -12,11 +12,11 @@ pipeline {
                 sh './gradlew build'
             }
         }
-        // stage('test') {
-        //     steps {
-        //         sh './gradlew test'
-        //     }
-        // }
+        stage('test') {
+            steps {
+                sh './gradlew test'
+            }
+        }
         stage('Release') {
             steps {
                 echo 'Release'
@@ -24,11 +24,11 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'java -version'
-                sh 'gradle -v'
-                sh 'git --version'
-                sh 'docker --version'
                 sh 'ls -la'
+                sh 'java -version'
+                sh 'gradle -v || true'
+                sh 'git --version || true'
+                sh 'docker --version || true'
             }
         }
     }
