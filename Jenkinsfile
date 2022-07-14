@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Publish docker image') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub'){
+                withDockerRegistry([credentialsId: 'dockerhub', url: ""]){
                     sh 'docker  push mdifils/caesar-cipher:$BUILD_ID'
                 }
             }
