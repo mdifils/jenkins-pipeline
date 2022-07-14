@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-                sh 'git describe --always'
+                sh 'git describe --tags'
             }
         }
         // stage('Build docker image') {
