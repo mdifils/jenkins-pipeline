@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    // environment {
+    //     REPO = "mdifils/jenkins-pipeline"
+    // }
+
     stages {
         stage('Preparing gradlew') {
             steps {
@@ -20,8 +24,27 @@ pipeline {
         }
         stage('Release') {
             steps {
-                sh 'tag=$(git describe --tags)'
-                sh 'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
+                withCredentials([string(credentialsId: 'github-token ', variable: 'TOKEN')]){
+                    sh 'TAG=$(git describe --tags)'
+                    sh 'TAG_MSG=$(git tag -l $TAG --format=\'%(contents)\')'
+                    sh '''#!/bin/bash
+                          DATA='{
+                            "tag_name": "'$TAG'",
+                            "target_commitish": "main",
+                            "name": "'$TAG'",
+                            "body": "'$TAG_MSG'",
+                            "draft": false,
+                            "prerelease": false
+                          }'
+                       '''
+                    sh '''#!/bin/bash
+                          release=$(curl -X POST
+                          -d $DATA
+                          -H "Authorization: token $TOKEN"
+                          https://api.github.com/repos/mdifils/jenkins-pipeline/releases)
+                       '''
+                    echo $release
+                }
             }
         }
         // stage('Build docker image') {
