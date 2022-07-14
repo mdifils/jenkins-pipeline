@@ -28,8 +28,9 @@ pipeline {
                 sh 'ls -la'
                 sh 'java -version'
                 sh 'gradle -v || true'
-                sh 'git --version || true'
-                sh 'docker --version || true'
+                sh 'git version || true'
+                sh 'docker version || true'
+                sh 'printenv || true'
             }
         }
     }
