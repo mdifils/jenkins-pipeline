@@ -23,6 +23,18 @@ pipeline {
                 echo 'Release'
             }
         }
+        stage('Build docker image') {
+            steps {
+                sh 'docker  build -t mdifils/caesar-cipher:$BUILD_ID .'
+            }
+        }
+        stage('Publish docker image') {
+            steps {
+                withDockerRegistry(credentialsId: 'dockerhub'){
+                    sh 'docker  push mdifils/caesar-cipher:$BUILD_ID'
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 sh 'ls -la'
