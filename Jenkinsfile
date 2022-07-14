@@ -21,7 +21,7 @@ pipeline {
         stage('Release') {
             steps {
                 sh 'tag=$(git describe --tags)'
-                sh "git for-each-ref refs/tags/$tag --format=\'%(contents)\'"
+                sh 'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
             }
         }
         // stage('Build docker image') {
@@ -38,12 +38,13 @@ pipeline {
         // }
         stage('Deploy') {
             steps {
-                sh 'ls -la'
-                sh 'java -version'
-                sh 'gradle -v || true'
-                sh 'git version || true'
-                sh 'docker version || true'
-                sh 'printenv || true'
+                sh '''#!/bin/bash
+                    ls -la
+                    java -version
+                    git version
+                    docker version
+                    printenv
+                   '''
             }
         }
     }
