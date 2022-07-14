@@ -26,7 +26,9 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'github-token', variable: 'TOKEN')]){
                     sh 'TAG=$(git describe --tags)'
+                    sh 'echo $TAG'
                     sh 'TAG_MSG="$(git tag -l $TAG --format=\'%(contents)\')"'
+                    sh 'echo TAG_MSG'
                     sh '''#!/bin/bash
                           DATA='{
                             "tag_name": "'$TAG'",
@@ -37,13 +39,13 @@ pipeline {
                             "prerelease": false
                           }'
                        '''
-                    sh '''#!/bin/bash
-                          release=$(curl -X POST
-                          -d $DATA
-                          -H "Authorization: token $TOKEN"
-                          https://api.github.com/repos/mdifils/jenkins-pipeline/releases)
-                       '''
-                    echo $release
+                    // sh '''#!/bin/bash
+                    //       release=$(curl -X POST
+                    //       -d $DATA
+                    //       -H "Authorization: token $TOKEN"
+                    //       https://api.github.com/repos/mdifils/jenkins-pipeline/releases)
+                    //    '''
+                    sh 'echo $DATA'
                 }
             }
         }
