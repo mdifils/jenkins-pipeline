@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-                echo 'Release'
+                sh 'git describe --tags'
             }
         }
         stage('Build docker image') {
