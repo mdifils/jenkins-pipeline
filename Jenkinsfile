@@ -20,7 +20,8 @@ pipeline {
         }
         stage('Release') {
             steps {
-                sh 'git describe --tags'
+                sh 'tag=$(git describe --tags)'
+                sh "git for-each-ref refs/tags/$tag --format=\'%(contents)\'"
             }
         }
         // stage('Build docker image') {
