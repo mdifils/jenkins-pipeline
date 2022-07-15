@@ -36,7 +36,7 @@ pipeline {
                             "draft": false,
                             "prerelease": false
                           }'
-                          curl -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/mdifils/jenkins-pipeline/releases"
+                          curl -X POST -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/mdifils/jenkins-pipeline/releases"
                           which curl
                        '''
                 }
