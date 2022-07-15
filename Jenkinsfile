@@ -50,7 +50,8 @@ pipeline {
                 // }
                 sh '''#!/bin/bash
                       TAG=$(git describe --tags | cut -d "-" -f 1)
-                      echo $TAG
+                      TAG_MSG=$(git tag -l $TAG --format='%(contents)')
+                      echo $TAG_MSG
                    '''
             }
         }
