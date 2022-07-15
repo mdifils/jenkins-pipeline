@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    // environment {
-    //     REPO = "mdifils/jenkins-pipeline"
-    // }
+    environment {
+        REPO = "mdifils/jenkins-pipeline"
+    }
 
     stages {
         stage('Preparing gradlew') {
@@ -36,28 +36,28 @@ pipeline {
                             "draft": false,
                             "prerelease": false
                           }'
-                          curl -X POST -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/mdifils/jenkins-pipeline/releases"
+                          curl -X POST -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/$REPO/releases"
                           which curl
                        '''
                 }
             }
         }
-        // stage('Build docker image') {
-        //     steps {
-        //         sh 'docker  build -t mdifils/caesar-cipher:$BUILD_ID .'
-        //     }
-        // }
-        // stage('Publish docker image') {
-        //     steps {
-        //         withDockerRegistry([credentialsId: 'dockerhub', url: ""]){
-        //             sh 'docker  push mdifils/caesar-cipher:$BUILD_ID'
-        //         }
-        //     }
-        // }
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'printenv'
-        //     }
-        // }
+        stage('Build docker image') {
+            steps {
+                sh 'docker  build -t mdifils/caesar-cipher:$BUILD_ID .'
+            }
+        }
+        stage('Publish docker image') {
+            steps {
+                withDockerRegistry([credentialsId: 'dockerhub', url: ""]){
+                    sh 'docker  push mdifils/caesar-cipher:$BUILD_ID'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'printenv'
+            }
+        }
     }
 }
