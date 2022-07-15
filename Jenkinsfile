@@ -36,11 +36,8 @@ pipeline {
                             "draft": false,
                             "prerelease": false
                           }'
-                          release=$(
-                            curl -d "$DATA"
-                            "https://api.github.com/repos/mdifils/jenkins-pipeline/releases?access_token=$TOKEN"
-                          )
-                          echo $release
+                          curl --data "$DATA" "https://api.github.com/repos/mdifils/jenkins-pipeline/releases?access_token=$TOKEN"
+                          which curl
                        '''
                 }
             }
