@@ -48,7 +48,8 @@ pipeline {
                 //        '''
                 //     sh 'echo $DATA'
                 // }
-                sh 'git describe --tags | cut -d "-" -f 1'
+                sh 'TAG=$(git describe --tags | cut -d "-" -f 1)'
+                echo "$TAG"
             }
         }
         // stage('Build docker image') {
