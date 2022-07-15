@@ -39,7 +39,7 @@ pipeline {
                           release=$(
                             curl -X POST -d "$DATA"
                             -H "Authorization: token $TOKEN"
-                            https://api.github.com/repos/mdifils/jenkins-pipeline/releases
+                            "https://api.github.com/repos/mdifils/jenkins-pipeline/releases"
                           )
                           echo $release
                        '''
