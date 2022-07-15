@@ -25,9 +25,10 @@ pipeline {
         stage('Release') {
             steps {
                 withCredentials([string(credentialsId: 'github-token', variable: 'TOKEN')]){
-                    sh 'TAG=$(git describe --tags | cut -d "-" -f 1)'
+                    sh 'TAG=$(git describe --tags)'
+                    sh 'TAG=$(echo "$TAG" | cut -d "-" -f 1)'
                     echo "$TAG"
-                    sh 'TAG_MSG="$(git tag -l $TAG --format=\'%(contents)\')"'
+                    sh 'TAG_MSG=$(git tag -l "$TAG" --format=\'%(contents)\')'
                     echo "$TAG_MSG"
                     // sh '''#!/bin/bash
                     //       DATA='{
