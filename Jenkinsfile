@@ -51,7 +51,15 @@ pipeline {
                 sh '''#!/bin/bash
                       TAG=$(git describe --tags | cut -d "-" -f 1)
                       TAG_MSG=$(git tag -l $TAG --format='%(contents)')
-                      echo $TAG_MSG
+                      DATA='{
+                        "tag_name": "'$TAG'",
+                        "target_commitish": "main",
+                        "name": "'$TAG'",
+                        "body": "'$TAG_MSG'",
+                        "draft": false,
+                        "prerelease": false
+                      }'
+                      echo $DATA
                    '''
             }
         }
