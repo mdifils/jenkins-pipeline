@@ -57,7 +57,6 @@ pipeline {
             steps {
                 sh 'docker version || true'
                 sh 'git version || true'
-                sh 'ansible --version || true'
             }
         }
     }
