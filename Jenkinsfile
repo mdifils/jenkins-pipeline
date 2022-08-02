@@ -38,7 +38,8 @@ pipeline {
                           }'
                           curl -o release -X POST -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/$REPO/releases"
                        '''
-                    sh 'cat release'
+                    sh 'id=$(grep id release  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d \' \' -f2)'
+                    echo "$id"
                 }
             }
         }
