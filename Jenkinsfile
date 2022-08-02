@@ -53,10 +53,10 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Deploy') {
+        stage('Upload') {
             steps {
-                sh 'docker version || true'
-                sh 'git version || true'
+                sh 'pwd'
+                sh 'ls target || true'
             }
         }
     }
