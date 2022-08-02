@@ -38,7 +38,7 @@ pipeline {
                           }'
                           release=$(curl -X POST -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/$REPO/releases")
                        '''
-                    sh 'echo $release || true'
+                    echo "$release"
                 }
             }
         }
