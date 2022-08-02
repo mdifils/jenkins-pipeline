@@ -36,9 +36,9 @@ pipeline {
                             "draft": false,
                             "prerelease": false
                           }'
-                          release=$(curl -X POST -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/$REPO/releases")
+                          curl -X POST -d "$DATA" -H "Authorization:token $TOKEN" "https://api.github.com/repos/$REPO/releases"
                        '''
-                    echo "$release"
+                    sh 'cat release'
                 }
             }
         }
