@@ -56,7 +56,7 @@ pipeline {
         stage('Upload') {
             steps {
                 sh 'pwd'
-                sh 'ls target || true'
+                sh 'ls build/libs || true'
             }
         }
     }
