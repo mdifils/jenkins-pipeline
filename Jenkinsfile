@@ -41,12 +41,13 @@ pipeline {
                             "https://api.github.com/repos/$REPO/releases"
                        '''
                     sh '''#!/bin/bash
+                        cp build/libs/caesar-cipher.jar jarfile.jar
                         ID=$(grep id release  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d ' ' -f2)
                         curl -X POST \
-                            --data-binary @build/libs/caesar-cipher.jar \
+                            --data-binary @jarfile.jar \
                             -H "Authorization:token $TOKEN" \
                             -H "Accept: application/vnd.github+json"\
-                            "https://api.github.com/repos/$REPO/releases/$ID/assets"
+                            "https://api.github.com/repos/$REPO/releases/$ID/assets?name=jarfile.jar"
                        '''
                 }
             }
