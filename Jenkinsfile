@@ -82,7 +82,7 @@ pipeline {
 
             emailext to: 'michel.difils@gmail.com',
             subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
-            body: 'Report about: $JOB_NAME\nMore Info can be found here: $BUILD_URL',
+            body: 'Report about: $JOB_NAME\nMore Info can be found here: $BUILD_URL'
             // attachmentsPattern: '*.json'
             // attachLog: true
         }
