@@ -74,7 +74,7 @@ pipeline {
         always {
             // archiveArtifacts artifacts: '*.json', onlyIfSuccessful: true
 
-            emailtext to: 'michel.difils@gmail.com',
+            emailext to: 'michel.difils@gmail.com',
             subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
             body: 'Report about: $JOB_NAME\nMore Info can be found here: $BUILD_URL',
             attachLog: true
