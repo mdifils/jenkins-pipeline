@@ -69,8 +69,8 @@ pipeline {
         stage('Upload') {
             steps {
                 sh 'pwd'
-                sh 'which zip'
                 sh 'zip artifacts.zip build/libs/caesar-cipher.jar'
+                sh 'ls -la'
             }
         }
     }
