@@ -74,4 +74,11 @@ pipeline {
         //     }
         // }
     }
+    post {
+        always {
+            emailext body: 'Test Message',
+            subject: 'Test Subject',
+            to: 'michel.fils@hotmail.com'
+        }
+    }
 }
