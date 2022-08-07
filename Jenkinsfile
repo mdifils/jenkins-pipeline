@@ -6,11 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Preparing gradlew') {
-            steps {
-                sh 'chmod +x gradlew'
-            }
-        }
         stage('build') {
             steps {
                 sh './gradlew build'
@@ -36,14 +31,15 @@ pipeline {
         //                     "draft": false,
         //                     "prerelease": false
         //                 }'
-        //                 curl -o release -X POST -d "$DATA" \
+        //                 curl -o release.json -X POST -d "$DATA" \
         //                     -H "Authorization:token $TOKEN" \
         //                     -H "Accept: application/vnd.github+json" \
         //                     "https://api.github.com/repos/$REPO/releases"
         //                '''
         //             sh '''#!/bin/bash
         //                 zip artifacts.zip build/libs/caesar-cipher.jar
-        //                 ID=$(grep id release  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d ' ' -f2)
+        //                 # ID=$(grep id release.json  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d ' ' -f2)
+        //                 ID=$(jq '.id' release.json)
         //                 curl -X POST \
         //                     --data-binary @artifacts.zip \
         //                     -H "Authorization:token $TOKEN" \
@@ -74,7 +70,15 @@ pipeline {
         //     }
         // }
     }
-    post {
-        always {}
-    }
+    // post { // always, failure, changed
+    //     always {
+    //         archiveArtifacts artifacts: '*.json', onlyIfSuccessful: true
+
+    //         emailtext to: 'michel.difils@gmail.com',
+    //         subject: 'Jenkins report: ',
+    //         body: '',
+    //         attachLog: true,
+    //         attachmentsPattern: '*.json'
+    //     }
+    // }
 }
