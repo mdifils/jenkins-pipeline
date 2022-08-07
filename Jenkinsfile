@@ -70,7 +70,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'which zip'
-                sh 'ls build/libs || true'
+                sh 'zip artifacts.zip build/libs/caesar-cipher.jar'
             }
         }
     }
