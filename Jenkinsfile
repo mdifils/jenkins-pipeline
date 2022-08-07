@@ -15,6 +15,7 @@ pipeline {
             steps {
                 sh './gradlew test'
                 sh 'java -jar build/libs/caesar-cipher.jar'
+                echos
             }
         }
         stage('Release') {
@@ -77,12 +78,12 @@ pipeline {
     }
     post { // always, failure, changed
         failure {
-            archiveArtifacts artifacts: '*.json', onlyIfSuccessful: true
+            // archiveArtifacts artifacts: '*.json', onlyIfSuccessful: true
 
             emailext to: 'michel.difils@gmail.com',
             subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
             body: 'Report about: $JOB_NAME\nMore Info can be found here: $BUILD_URL',
-            attachmentsPattern: '*.json'
+            // attachmentsPattern: '*.json'
             // attachLog: true
         }
     }
