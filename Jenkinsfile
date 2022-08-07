@@ -47,7 +47,8 @@ pipeline {
                                 -H "Authorization:token $TOKEN" \
                                 -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github+json" \
-                                "https://uploads.github.com/repos/$REPO/releases/$ID/assets?name=artifacts.zip"
+                                "https://uploads.github.com/repos/$REPO/releases/$ID/assets?name=artifacts.zip";
+                            else rm release.json
                         fi
                        '''
                 }
