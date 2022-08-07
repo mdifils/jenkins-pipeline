@@ -38,8 +38,8 @@ pipeline {
                        '''
                     sh '''#!/bin/bash
                         zip artifacts.zip build/libs/caesar-cipher.jar
-                        ID=$(grep id release.json  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d ' ' -f2)
-                        #ID=$(jq '.id' release.json)
+                        #ID=$(grep id release.json  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d ' ' -f2)
+                        ID=$(jq '.id' release.json)
                         echo $ID
                         ls -la
                         curl -X POST \
@@ -47,7 +47,7 @@ pipeline {
                             -H "Authorization:token $TOKEN" \
                             -H "Content-Type: application/json" \
                             -H "Accept: application/vnd.github+json" \
-                            "https://api.github.com/repos/$REPO/releases/$ID/assets?name=artifacts.zip"
+                            "https://uploads.github.com/repos/$REPO/releases/$ID/assets?name=artifacts.zip"
                        '''
                 }
             }
