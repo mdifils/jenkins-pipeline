@@ -22,7 +22,9 @@ pipeline {
                 withCredentials([string(credentialsId: 'github-token', variable: 'TOKEN')]){
                     sh '''#!/bin/bash
                         TAG=$(git describe --tags | cut -d "-" -f 1)
+                        echo $TAG
                         TAG_MSG=$(git tag -l $TAG --format='%(contents)')
+                        echo $TAG_MSG
                         DATA='{
                             "tag_name": "'$TAG'",
                             "target_commitish": "main",
@@ -47,8 +49,7 @@ pipeline {
                                 -H "Authorization:token $TOKEN" \
                                 -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github+json" \
-                                "https://uploads.github.com/repos/$REPO/releases/$ID/assets?name=artifacts.zip";
-                            else rm release.json
+                                "https://uploads.github.com/repos/$REPO/releases/$ID/assets?name=artifacts.zip"
                         fi
                        '''
                 }
@@ -75,14 +76,14 @@ pipeline {
         // }
     }
     post { // always, failure, changed
-        always {
+        failure {
             archiveArtifacts artifacts: '*.json', onlyIfSuccessful: true
 
             emailext to: 'michel.difils@gmail.com',
             subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
             body: 'Report about: $JOB_NAME\nMore Info can be found here: $BUILD_URL',
-            attachmentsPattern: '*.json',
-            attachLog: true
+            attachmentsPattern: '*.json'
+            // attachLog: true
         }
     }
 }
