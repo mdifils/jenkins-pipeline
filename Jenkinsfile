@@ -38,8 +38,10 @@ pipeline {
                        '''
                     sh '''#!/bin/bash
                         zip artifacts.zip build/libs/caesar-cipher.jar
-                        # ID=$(grep id release.json  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d ' ' -f2)
-                        ID=$(jq '.id' release.json)
+                        ID=$(grep id release.json  | head -n 1 | cut -d : -f2 | cut -d , -f1 | cut -d ' ' -f2)
+                        #ID=$(jq '.id' release.json)
+                        echo $ID
+                        ls -la
                         curl -X POST \
                             --data-binary @artifacts.zip \
                             -H "Authorization:token $TOKEN" \
