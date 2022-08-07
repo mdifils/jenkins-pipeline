@@ -66,12 +66,12 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Upload') {
-            steps {
-                sh 'pwd'
-                sh 'zip artifacts.zip build/libs/caesar-cipher.jar'
-                sh 'ls -la'
-            }
-        }
+        // stage('Upload') {
+        //     steps {
+        //         sh 'pwd'
+        //         sh 'zip artifacts.zip build/libs/caesar-cipher.jar'
+        //         sh 'ls -la'
+        //     }
+        // }
     }
 }
