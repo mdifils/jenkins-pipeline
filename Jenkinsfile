@@ -75,8 +75,6 @@ pipeline {
         // }
     }
     post {
-        always {
-            emailext body: 'Test Message'
-        }
+        always {}
     }
 }
